@@ -14,12 +14,12 @@ function drawPetal(ctx, x, y, w, h, flip) {
   ctx.rotate(flip * 0.5);
   ctx.scale(scaleX, 1);
 
-  // sakura-style petal: rounded body, soft notch at the tip
+  // sakura-style petal: rounded plump body, soft notch at the tip
   const path = () => {
     ctx.beginPath();
     ctx.moveTo(0, -h / 2);
-    ctx.bezierCurveTo(w * 0.55, -h * 0.35, w * 0.5, h * 0.25, 0, h * 0.5);
-    ctx.bezierCurveTo(-w * 0.5, h * 0.25, -w * 0.55, -h * 0.35, -w * 0.08, -h * 0.42);
+    ctx.bezierCurveTo(w * 0.72, -h * 0.4, w * 0.62, h * 0.3, 0, h / 2);
+    ctx.bezierCurveTo(-w * 0.62, h * 0.3, -w * 0.72, -h * 0.4, -w * 0.12, -h * 0.4);
     ctx.closePath();
   };
 
@@ -79,17 +79,17 @@ export default function FlowersCanvas() {
         this.x = Math.random() * canvas.width;
         this.y = -30 - Math.random() * canvas.height * 0.3;
         this.w = 14 + 14 * Math.random();
-        this.h = this.w * (1.3 + 0.3 * Math.random());
+        this.h = this.w * (1.15 + 0.25 * Math.random());
         this.opacity = 0.25 + ((this.w - 14) / 14) * 0.2;
         this.flip = Math.random() * Math.PI * 2;
         this.xSpeed = 0.6 + 0.8 * Math.random();
-        this.ySpeed = 0.8 + 0.8 * Math.random();
+        this.ySpeed = 1 + 1 * Math.random();
         this.flipSpeed = 0.03 * Math.random();
       }
-      // horizontal speed ramps up as the petal approaches the right edge
+      // gentle drift through the left/middle, fast sweep near the right edge
       speedAt(x) {
         const t = Math.min(1, x / canvas.width);
-        return this.xSpeed * (0.4 + t * 4.1);
+        return this.xSpeed * (0.4 + t * t * 3.6);
       }
       draw() {
         if (this.y > canvas.height + 40 || this.x > canvas.width + 40) {

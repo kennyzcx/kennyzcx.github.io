@@ -3,7 +3,7 @@ import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 
 export const metadata = {
-  title: "kenny tang",
+  title: "kenny",
   description: "kenny's personal website",
 };
 
