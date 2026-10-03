@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
-const PETAL_FILL = "#aed9f5";
+const PETAL_LIGHT = "#aed9f5";
+const PETAL_DARK = "#4a90c8";
 const PETAL_EDGE = "#8fc7ec";
 
 function drawPetal(ctx, x, y, w, h, flip) {
@@ -14,14 +15,30 @@ function drawPetal(ctx, x, y, w, h, flip) {
   ctx.scale(scaleX, 1);
 
   // sakura-style petal: rounded body, soft notch at the tip
-  ctx.beginPath();
-  ctx.moveTo(0, -h / 2);
-  ctx.bezierCurveTo(w * 0.55, -h * 0.35, w * 0.5, h * 0.25, 0, h * 0.5);
-  ctx.bezierCurveTo(-w * 0.5, h * 0.25, -w * 0.55, -h * 0.35, -w * 0.08, -h * 0.42);
-  ctx.closePath();
+  const path = () => {
+    ctx.beginPath();
+    ctx.moveTo(0, -h / 2);
+    ctx.bezierCurveTo(w * 0.55, -h * 0.35, w * 0.5, h * 0.25, 0, h * 0.5);
+    ctx.bezierCurveTo(-w * 0.5, h * 0.25, -w * 0.55, -h * 0.35, -w * 0.08, -h * 0.42);
+    ctx.closePath();
+  };
 
-  ctx.fillStyle = PETAL_FILL;
+  path();
+  ctx.fillStyle = PETAL_LIGHT;
   ctx.fill();
+
+  // darker half: clip to the lengthwise half of the petal and refill
+  path();
+  ctx.fillStyle = PETAL_DARK;
+  ctx.save();
+  ctx.clip();
+  ctx.beginPath();
+  ctx.rect(0, -h, w, h * 2);
+  ctx.fill();
+  ctx.restore();
+
+  // subtle edge outline over the whole petal
+  path();
   ctx.strokeStyle = PETAL_EDGE;
   ctx.lineWidth = 1;
   ctx.stroke();
@@ -58,16 +75,21 @@ export default function FlowersCanvas() {
         this.reset();
       }
       reset() {
-        // spawn in the top-left band of the screen
-        this.x = Math.random() * canvas.width * 0.45;
+        // spawn across the whole width, entering from above the top edge
+        this.x = Math.random() * canvas.width;
         this.y = -30 - Math.random() * canvas.height * 0.3;
         this.w = 14 + 14 * Math.random();
         this.h = this.w * (1.3 + 0.3 * Math.random());
         this.opacity = 0.25 + ((this.w - 14) / 14) * 0.2;
         this.flip = Math.random() * Math.PI * 2;
-        this.xSpeed = 1.2 + 1.6 * Math.random();
+        this.xSpeed = 0.6 + 0.8 * Math.random();
         this.ySpeed = 0.8 + 0.8 * Math.random();
         this.flipSpeed = 0.03 * Math.random();
+      }
+      // horizontal speed ramps up as the petal approaches the right edge
+      speedAt(x) {
+        const t = Math.min(1, x / canvas.width);
+        return this.xSpeed * (0.4 + t * 4.1);
       }
       draw() {
         if (this.y > canvas.height + 40 || this.x > canvas.width + 40) {
@@ -77,7 +99,7 @@ export default function FlowersCanvas() {
         drawPetal(ctx, this.x, this.y, this.w, this.h, this.flip);
       }
       animate() {
-        this.x += this.xSpeed + 4 * mouseX;
+        this.x += this.speedAt(this.x) + 4 * mouseX;
         this.y += this.ySpeed + 1.5 * mouseX;
         this.flip += this.flipSpeed;
         this.draw();
