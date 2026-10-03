@@ -6,6 +6,16 @@ const PETAL_LIGHT = "#aed9f5";
 const PETAL_DARK = "#4a90c8";
 const PETAL_EDGE = "#8fc7ec";
 
+// fixed medium/small size for every petal
+const PETAL_W = 16;
+const PETAL_H = 20;
+
+// opacity envelope across the page:
+// base -> very faint through the first 3/4 -> darker again near the right
+const OPACITY_BASE = 0.25;
+const OPACITY_FAINT = 0.1;
+const OPACITY_DARK = 0.4;
+
 function drawPetal(ctx, x, y, w, h, flip) {
   // flutter: width pulses like laura's petals
   const scaleX = 0.6 + Math.abs(Math.cos(flip)) / 3;
@@ -79,19 +89,27 @@ export default function FlowersCanvas() {
         // half enter from above the top edge — full-width scatter
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height * 2 - canvas.height;
-        this.w = 14 + 14 * Math.random();
-        this.h = this.w * (1.15 + 0.25 * Math.random());
-        this.opacity = 0.2 + ((this.w - 14) / 14) * 0.15;
+        this.w = PETAL_W;
+        this.h = PETAL_H;
         this.flip = Math.random() * Math.PI * 2;
         this.xSpeed = 1.2 + 1.6 * Math.random();
         this.ySpeed = 0.9 + 0.8 * Math.random();
         this.flipSpeed = 0.03 * Math.random();
       }
+      // fade with horizontal position: faint through the first 3/4,
+      // then reappear darker approaching the right edge
+      opacityAt(x) {
+        const t = Math.min(1, x / canvas.width);
+        if (t < 0.75) {
+          return OPACITY_BASE + (OPACITY_FAINT - OPACITY_BASE) * (t / 0.75);
+        }
+        return OPACITY_FAINT + (OPACITY_DARK - OPACITY_FAINT) * ((t - 0.75) / 0.25);
+      }
       draw() {
         if (this.y > canvas.height + 40 || this.x > canvas.width + 40) {
           this.reset();
         }
-        ctx.globalAlpha = this.opacity;
+        ctx.globalAlpha = this.opacityAt(this.x);
         drawPetal(ctx, this.x, this.y, this.w, this.h, this.flip);
       }
       animate() {
