@@ -104,7 +104,7 @@ export default function FlowersCanvas() {
       }
     }
 
-    for (let i = 0; i < 28; i++) petals.push(new Petal());
+    for (let i = 0; i < 14; i++) petals.push(new Petal());
 
     (function frame() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
