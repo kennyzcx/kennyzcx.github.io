@@ -75,21 +75,17 @@ export default function FlowersCanvas() {
         this.reset();
       }
       reset() {
-        // spawn across the whole width, entering from above the top edge
+        // laura's spawn: half the petals pop in anywhere on screen,
+        // half enter from above the top edge — full-width scatter
         this.x = Math.random() * canvas.width;
-        this.y = -30 - Math.random() * canvas.height * 0.3;
+        this.y = Math.random() * canvas.height * 2 - canvas.height;
         this.w = 14 + 14 * Math.random();
         this.h = this.w * (1.15 + 0.25 * Math.random());
-        this.opacity = 0.25 + ((this.w - 14) / 14) * 0.2;
+        this.opacity = 0.2 + ((this.w - 14) / 14) * 0.15;
         this.flip = Math.random() * Math.PI * 2;
-        this.xSpeed = 0.6 + 0.8 * Math.random();
-        this.ySpeed = 1 + 1 * Math.random();
+        this.xSpeed = 1.2 + 1.6 * Math.random();
+        this.ySpeed = 0.9 + 0.8 * Math.random();
         this.flipSpeed = 0.03 * Math.random();
-      }
-      // gentle drift through the left/middle, fast sweep near the right edge
-      speedAt(x) {
-        const t = Math.min(1, x / canvas.width);
-        return this.xSpeed * (0.4 + t * t * 3.6);
       }
       draw() {
         if (this.y > canvas.height + 40 || this.x > canvas.width + 40) {
@@ -99,14 +95,16 @@ export default function FlowersCanvas() {
         drawPetal(ctx, this.x, this.y, this.w, this.h, this.flip);
       }
       animate() {
-        this.x += this.speedAt(this.x) + 4 * mouseX;
-        this.y += this.ySpeed + 1.5 * mouseX;
+        // mouse is the accelerator, like laura's:
+        // cursor left -> calm base pace; cursor right -> fast sweep off
+        this.x += this.xSpeed + 5 * mouseX;
+        this.y += this.ySpeed + 2 * mouseX;
         this.flip += this.flipSpeed;
         this.draw();
       }
     }
 
-    for (let i = 0; i < 20; i++) petals.push(new Petal());
+    for (let i = 0; i < 28; i++) petals.push(new Petal());
 
     (function frame() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
