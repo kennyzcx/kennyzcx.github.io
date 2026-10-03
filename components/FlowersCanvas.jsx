@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
-const ACCENT = "#89cff0";
-const ACCENT_DEEP = "#5aa9d6";
+const PETAL = "#6fb9e8";
+const CENTER = "#3d7ea6";
 
 function drawFlower(ctx, x, y, size, flip) {
   const flipScale = 0.6 + Math.abs(Math.cos(flip)) / 3;
@@ -13,7 +13,7 @@ function drawFlower(ctx, x, y, size, flip) {
   ctx.scale(flipScale, 1);
 
   const petal = size / 2;
-  ctx.fillStyle = ACCENT;
+  ctx.fillStyle = PETAL;
   for (let i = 0; i < 5; i++) {
     const angle = (i / 5) * Math.PI * 2;
     const px = Math.cos(angle) * petal * 0.55;
@@ -23,7 +23,7 @@ function drawFlower(ctx, x, y, size, flip) {
     ctx.fill();
   }
 
-  ctx.fillStyle = ACCENT_DEEP;
+  ctx.fillStyle = CENTER;
   ctx.beginPath();
   ctx.arc(0, 0, petal * 0.28, 0, Math.PI * 2);
   ctx.fill();
@@ -35,8 +35,6 @@ export default function FlowersCanvas() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
     const canvas = canvasRef.current;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -46,7 +44,8 @@ export default function FlowersCanvas() {
     let mouseX = 0;
 
     const onMouse = (e) => {
-      mouseX = (e.clientX || e.touches[0].clientX) / window.innerWidth;
+      const cx = e.clientX !== undefined ? e.clientX : e.touches[0].clientX;
+      mouseX = cx / window.innerWidth;
     };
     const onResize = () => {
       canvas.width = window.innerWidth;
@@ -64,8 +63,8 @@ export default function FlowersCanvas() {
         // spawn in the top-left band of the screen
         this.x = Math.random() * canvas.width * 0.45;
         this.y = -30 - Math.random() * canvas.height * 0.3;
-        this.size = 14 + 14 * Math.random();
-        this.opacity = this.size / 40;
+        this.size = 18 + 18 * Math.random();
+        this.opacity = Math.max(0.5, this.size / 45);
         this.flip = Math.random() * Math.PI * 2;
         this.xSpeed = 1.2 + 1.6 * Math.random();
         this.ySpeed = 0.8 + 0.8 * Math.random();
@@ -86,7 +85,20 @@ export default function FlowersCanvas() {
       }
     }
 
-    for (let i = 0; i < 18; i++) flowers.push(new Flower());
+    for (let i = 0; i < 22; i++) flowers.push(new Flower());
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      // reduced motion: draw one static scattering instead of animating
+      flowers.forEach((f) => {
+        f.x = Math.random() * canvas.width;
+        f.y = Math.random() * canvas.height * 0.9;
+        f.draw();
+      });
+      ctx.globalAlpha = 1;
+      return () => {
+        window.removeEventListener("resize", onResize);
+      };
+    }
 
     (function frame() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
