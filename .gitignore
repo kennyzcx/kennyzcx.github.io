@@ -1,0 +1,7 @@
+node_modules/
+.next/
+out/
+
+_ref_*
+*.log
+.DS_Store
