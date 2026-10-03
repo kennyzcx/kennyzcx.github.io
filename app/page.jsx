@@ -8,7 +8,7 @@ export default function About() {
 
       {/* TODO: your school/degree */}
       <p>
-        i'm currently a computer science major at new york university. i have a
+        i'm currently a electrical and computer engineering major at new york university. i have a
         passion for coding, learning, and building.
       </p>
 
