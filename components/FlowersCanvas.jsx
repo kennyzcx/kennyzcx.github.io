@@ -6,9 +6,9 @@ const PETAL_LIGHT = "#aed9f5";
 const PETAL_DARK = "#4a90c8";
 const PETAL_EDGE = "#8fc7ec";
 
-// fixed medium/small size for every petal
-const PETAL_W = 16;
-const PETAL_H = 20;
+// fixed medium size, near-circular proportions
+const PETAL_W = 20;
+const PETAL_H = 22;
 
 // opacity envelope across the page:
 // base -> very faint through the first 3/4 -> darker again near the right
@@ -24,12 +24,12 @@ function drawPetal(ctx, x, y, w, h, flip) {
   ctx.rotate(flip * 0.5);
   ctx.scale(scaleX, 1);
 
-  // sakura-style petal: rounded plump body, soft notch at the tip
+  // near-circular petal: plump round body, tiny soft notch at the tip
   const path = () => {
     ctx.beginPath();
     ctx.moveTo(0, -h / 2);
-    ctx.bezierCurveTo(w * 0.72, -h * 0.4, w * 0.62, h * 0.3, 0, h / 2);
-    ctx.bezierCurveTo(-w * 0.62, h * 0.3, -w * 0.72, -h * 0.4, -w * 0.12, -h * 0.4);
+    ctx.bezierCurveTo(w * 0.8, -h * 0.42, w * 0.8, h * 0.32, 0, h / 2);
+    ctx.bezierCurveTo(-w * 0.8, h * 0.32, -w * 0.8, -h * 0.42, -w * 0.1, -h * 0.4);
     ctx.closePath();
   };
 

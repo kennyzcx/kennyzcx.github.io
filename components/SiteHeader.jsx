@@ -13,7 +13,7 @@ export default function SiteHeader() {
   const pathname = usePathname();
 
   const cls = (href) =>
-    pathname.startsWith(href.replace(/\/$/, "")) ? "current" : "";
+    pathname.replace(/\/$/, "") === href.replace(/\/$/, "") ? "current" : "";
 
   return (
     <header className="site-header">
