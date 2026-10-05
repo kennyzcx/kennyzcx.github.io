@@ -24,12 +24,14 @@ function drawPetal(ctx, x, y, w, h, flip) {
   ctx.rotate(flip * 0.5);
   ctx.scale(scaleX, 1);
 
-  // near-circular petal: plump round body, tiny soft notch at the tip
+  // organic blob petal: round-ish but lopsided, soft offset notch at the tip
   const path = () => {
     ctx.beginPath();
-    ctx.moveTo(0, -h / 2);
-    ctx.bezierCurveTo(w * 0.8, -h * 0.42, w * 0.8, h * 0.32, 0, h / 2);
-    ctx.bezierCurveTo(-w * 0.8, h * 0.32, -w * 0.8, -h * 0.42, -w * 0.1, -h * 0.4);
+    ctx.moveTo(w * 0.06, -h * 0.48);
+    ctx.bezierCurveTo(w * 0.85, -h * 0.45, w * 0.9, h * 0.1, w * 0.3, h * 0.45);
+    ctx.bezierCurveTo(w * 0.1, h * 0.56, -w * 0.08, h * 0.44, -w * 0.34, h * 0.35);
+    ctx.bezierCurveTo(-w * 0.78, h * 0.2, -w * 0.66, -h * 0.3, -w * 0.25, -h * 0.42);
+    ctx.bezierCurveTo(-w * 0.12, -h * 0.34, -w * 0.02, -h * 0.56, w * 0.06, -h * 0.48);
     ctx.closePath();
   };
 
