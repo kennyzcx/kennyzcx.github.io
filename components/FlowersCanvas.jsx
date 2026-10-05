@@ -16,7 +16,7 @@ const OPACITY_DARK = 0.4;
 // feathered edges baked in, no hard outline or half-split
 const GRAD_LIGHT = "#d3ebf9";
 const GRAD_MID = "#a9d5f1";
-const GRAD_DEEP = "#7fbfe8";
+const GRAD_DEEP = "#5aa9d6";
 const SPRITE_BLUR = 1.5;
 
 // sprite canvas: logical draw size + baked resolution multiplier
