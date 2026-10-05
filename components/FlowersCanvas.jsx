@@ -6,9 +6,9 @@ const PETAL_LIGHT = "#aed9f5";
 const PETAL_DARK = "#4a90c8";
 const PETAL_EDGE = "#8fc7ec";
 
-// fixed medium size, near-circular proportions
-const PETAL_W = 20;
-const PETAL_H = 22;
+// fixed medium size, proportions tuned round-ish
+const PETAL_W = 22;
+const PETAL_H = 24;
 
 // opacity envelope across the page:
 // base -> very faint through the first 3/4 -> darker again near the right
@@ -16,7 +16,10 @@ const OPACITY_BASE = 0.25;
 const OPACITY_FAINT = 0.1;
 const OPACITY_DARK = 0.4;
 
-function drawPetal(ctx, x, y, w, h, flip) {
+// subtle edge wobble so no petal is a frozen perfect circle
+const WOBBLE = 0.06;
+
+function drawPetal(ctx, x, y, w, h, flip, shape) {
   // flutter: width pulses like laura's petals
   const scaleX = 0.6 + Math.abs(Math.cos(flip)) / 3;
   ctx.save();
@@ -24,14 +27,35 @@ function drawPetal(ctx, x, y, w, h, flip) {
   ctx.rotate(flip * 0.5);
   ctx.scale(scaleX, 1);
 
-  // organic blob petal: round-ish but lopsided, soft offset notch at the tip
+  //x-offset magnitudes breathe with the flip, using per-petal phase
+  const wob = (m, phase) => m * (1 + WOBBLE * Math.sin(flip * 2.3 + phase));
+
+  // organic blob petal: round-ish but lopsided, soft offset notch at the tip;
+  // right/left bulges come from this petal's own random shape factors,
+  // so every petal's edge is a little different
   const path = () => {
     ctx.beginPath();
-    ctx.moveTo(w * 0.06, -h * 0.48);
-    ctx.bezierCurveTo(w * 0.85, -h * 0.45, w * 0.9, h * 0.1, w * 0.3, h * 0.45);
-    ctx.bezierCurveTo(w * 0.1, h * 0.56, -w * 0.08, h * 0.44, -w * 0.34, h * 0.35);
-    ctx.bezierCurveTo(-w * 0.78, h * 0.2, -w * 0.66, -h * 0.3, -w * 0.25, -h * 0.42);
-    ctx.bezierCurveTo(-w * 0.12, -h * 0.34, -w * 0.02, -h * 0.56, w * 0.06, -h * 0.48);
+    ctx.moveTo(wob(0.06, shape.phase) * w, -0.48 * h);
+    ctx.bezierCurveTo(
+      wob(shape.right, 0.7) * w, -0.45 * h,
+      wob(shape.right + 0.05, 1.9) * w, 0.1 * h,
+      wob(0.3, 3.1) * w, 0.45 * h
+    );
+    ctx.bezierCurveTo(
+      wob(0.1, 4.2) * w, 0.56 * h,
+      wob(-0.08, 2.6) * w, 0.44 * h,
+      wob(-0.34, 0.9) * w, 0.35 * h
+    );
+    ctx.bezierCurveTo(
+      wob(-shape.left, 5.0) * w, 0.18 * h,
+      wob(-shape.left, 2.8) * w, -0.3 * h,
+      wob(-0.25, 4.0) * w, -0.42 * h
+    );
+    ctx.bezierCurveTo(
+      wob(-0.12, 3.7) * w, -0.33 * h,
+      wob(-0.02, 5.3) * w, -0.56 * h,
+      wob(0.06, shape.phase) * w, -0.48 * h
+    );
     ctx.closePath();
   };
 
@@ -97,6 +121,12 @@ export default function FlowersCanvas() {
         this.xSpeed = 1.2 + 1.6 * Math.random();
         this.ySpeed = 0.9 + 0.8 * Math.random();
         this.flipSpeed = 0.03 * Math.random();
+        // per-petal blob factors: no two petals share the same silhouette
+        this.shape = {
+          right: 0.72 + 0.28 * Math.random(),
+          left: 0.6 + 0.3 * Math.random(),
+          phase: Math.random() * Math.PI * 2,
+        };
       }
       // fade with horizontal position: faint through the first 3/4,
       // then reappear darker approaching the right edge
@@ -112,7 +142,7 @@ export default function FlowersCanvas() {
           this.reset();
         }
         ctx.globalAlpha = this.opacityAt(this.x);
-        drawPetal(ctx, this.x, this.y, this.w, this.h, this.flip);
+        drawPetal(ctx, this.x, this.y, this.w, this.h, this.flip, this.shape);
       }
       animate() {
         // mouse is the accelerator, like laura's:
