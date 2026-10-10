@@ -1,7 +1,15 @@
+# dependencies
 node_modules/
-.next/
-out/
 
-_ref_*
-*.log
+# next.js
+/.next/
+/out/
+
+# local env files
+.env*.local
+
+# misc
 .DS_Store
+.vscode/
+*.log
+_ref_*
