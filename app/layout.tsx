@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Radio_Canada } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const radioCanada = Radio_Canada({
+  variable: "--font-radio-canada",
   subsets: ["latin"],
 });
 
@@ -23,7 +18,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${radioCanada.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-background text-foreground">
         <div className="mx-10 sm:mx-24 pt-12 pb-2 min-h-screen">
