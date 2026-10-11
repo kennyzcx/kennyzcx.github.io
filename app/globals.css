@@ -1,32 +1,26 @@
-/* kennytang.me — globals.css */
+@import "tailwindcss";
 
 :root {
+  --background: #ffffff;
+  --foreground: #1a1a1a;
   --accent: #89cff0;
-  --text: #1a1a1a;
-  --bg: #ffffff;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  font-size: 17px;
-  line-height: 1.6;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 48px 24px 32px;
-}
-
-/* Flowers canvas */
+/* petal canvas sits behind all page content */
 .flowers-canvas {
   position: fixed;
   top: 0;
@@ -37,35 +31,8 @@ body {
   pointer-events: none;
 }
 
-/* Header */
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 72px;
-}
-
-.site-name {
-  font-weight: 400;
-  text-decoration: none;
-  color: var(--text);
-}
-
-.site-name:hover {
-  color: var(--accent);
-}
-
-.site-nav {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
-}
-
+/* nav hover: a little line slides out under the hovered link */
 .site-nav a {
-  text-decoration: none;
-  font-weight: 600;
-  color: var(--text);
   position: relative;
 }
 
@@ -85,100 +52,4 @@ body {
 .site-nav a:hover::after,
 .site-nav a:focus-visible::after {
   transform: scaleX(1);
-}
-
-.site-nav a:hover {
-  color: var(--accent);
-}
-
-.site-nav a.current {
-  color: var(--accent);
-}
-
-.site-nav .resume-link {
-  font-weight: 400;
-  color: #888;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.site-nav .resume-link svg {
-  width: 15px;
-  height: 15px;
-}
-
-/* Content */
-.content p {
-  margin-bottom: 20px;
-}
-
-.greeting {
-  color: var(--accent);
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.pronouns {
-  margin-bottom: 36px;
-}
-
-a.text-link {
-  color: var(--text);
-  font-weight: 700;
-  text-decoration: none;
-}
-
-a.text-link:hover {
-  color: var(--accent);
-}
-
-/* Experience page */
-.entry {
-  margin-bottom: 32px;
-}
-
-.entry h2 {
-  font-size: 17px;
-  font-weight: 700;
-  display: inline;
-}
-
-.entry .entry-meta {
-  color: #888;
-}
-
-.entry ul {
-  margin: 6px 0 0 20px;
-}
-
-/* Contact list */
-.content ul {
-  list-style: none;
-}
-
-.content ul li {
-  margin-bottom: 8px;
-}
-
-/* Footer */
-.site-footer {
-  margin-top: 80px;
-  display: flex;
-  gap: 18px;
-}
-
-.site-footer a {
-  color: var(--text);
-  display: inline-flex;
-}
-
-.site-footer a:hover {
-  color: var(--accent);
-}
-
-.site-footer svg {
-  width: 22px;
-  height: 22px;
-  fill: currentColor;
 }

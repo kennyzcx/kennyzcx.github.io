@@ -24,7 +24,7 @@ const SPRITE_W = 48;
 const SPRITE_H = 36;
 const SPRITE_SCALE = 2;
 
-function makePetalSprite() {
+function makePetalSprite(): HTMLCanvasElement {
   // per-sprite blob jitter: no two variants share the same silhouette
   const s = {
     r1: 0.82 + 0.16 * Math.random(),
@@ -38,7 +38,7 @@ function makePetalSprite() {
   const canvas = document.createElement("canvas");
   canvas.width = SPRITE_W * SPRITE_SCALE;
   canvas.height = SPRITE_H * SPRITE_SCALE;
-  const c = canvas.getContext("2d");
+  const c = canvas.getContext("2d")!;
   c.scale(SPRITE_SCALE, SPRITE_SCALE);
   c.translate(SPRITE_W / 2, SPRITE_H / 2);
   c.scale(s.mirror, 1);
@@ -67,23 +67,23 @@ function makePetalSprite() {
 }
 
 export default function FlowersCanvas() {
-  const canvasRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas = canvasRef.current as HTMLCanvasElement;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 
     // bake four petal variants once — every petal just stamps one of these
     const sprites = Array.from({ length: 4 }, makePetalSprite);
 
-    const petals = [];
+    const petals: Petal[] = [];
     let mouseX = 0;
 
-    const onMouse = (e) => {
-      const cx = e.clientX !== undefined ? e.clientX : e.touches[0].clientX;
-      mouseX = cx / window.innerWidth;
+    const onMouse = (e: MouseEvent | TouchEvent) => {
+      const cx = "clientX" in e ? e.clientX : e.touches[0]?.clientX;
+      mouseX = (cx ?? 0) / window.innerWidth;
     };
     const onResize = () => {
       canvas.width = window.innerWidth;
@@ -94,6 +94,14 @@ export default function FlowersCanvas() {
     window.addEventListener("resize", onResize);
 
     class Petal {
+      x!: number;
+      y!: number;
+      flip!: number;
+      sprite!: HTMLCanvasElement;
+      xSpeed!: number;
+      ySpeed!: number;
+      flipSpeed!: number;
+
       constructor() {
         this.reset();
       }
@@ -110,7 +118,7 @@ export default function FlowersCanvas() {
       }
       // fade with horizontal position: faint through the first 3/4,
       // then reappear darker approaching the right edge
-      opacityAt(x) {
+      opacityAt(x: number) {
         const t = Math.min(1, x / canvas.width);
         if (t < 0.75) {
           return OPACITY_BASE + (OPACITY_FAINT - OPACITY_BASE) * (t / 0.75);

@@ -18,17 +18,17 @@ const LinkedInIcon = () => (
 
 export default function SiteFooter() {
   return (
-    <footer className="site-footer">
-      <a href="https://github.com/kennyzcx" aria-label="GitHub">
-        <GithubIcon />
+    <footer className="mt-20 flex gap-5">
+      <a href="https://github.com/kennyzcx" aria-label="GitHub" className="hover:text-accent">
+        <span className="w-[22px] h-[22px] fill-current inline-flex"><GithubIcon /></span>
       </a>
-      <a href="https://twitter.com/your-handle" aria-label="Twitter">
+      <a href="https://twitter.com/your-handle" aria-label="Twitter" className="hover:text-accent">
         {/* TODO: replace with your Twitter/X URL */}
-        <TwitterIcon />
+        <span className="w-[22px] h-[22px] fill-current inline-flex"><TwitterIcon /></span>
       </a>
-      <a href="https://www.linkedin.com/in/your-handle" aria-label="LinkedIn">
+      <a href="https://www.linkedin.com/in/your-handle" aria-label="LinkedIn" className="hover:text-accent">
         {/* TODO: replace with your LinkedIn URL */}
-        <LinkedInIcon />
+        <span className="w-[22px] h-[22px] fill-current inline-flex"><LinkedInIcon /></span>
       </a>
     </footer>
   );
