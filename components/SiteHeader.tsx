@@ -4,8 +4,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const ResumeIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" aria-hidden="true" className="w-4 h-4 fill-current">
-    <path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm65.45 216.62l-58.99 58.73c-6.25 6.23-16.4 6.23-22.64 0l-58.99-58.73c-5.02-5-1.45-13.62 5.67-13.62h40.51L192 312.75V160h50.62v152.24l-1.51 27.49h40.67c7.12 0 10.69 8.62 5.67 13.62z" />
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" className="w-4 h-4">
+    <rect
+      x="3.5"
+      y="3.5"
+      width="17"
+      height="17"
+      rx="3.5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    />
+    <circle cx="9.9" cy="8.4" r="1.85" fill="currentColor" />
+    <path d="M6.9 13.3c0-2.1 6-2.1 6 0z" fill="currentColor" />
+    <rect x="6.9" y="15.1" width="10.2" height="1.9" rx="0.95" fill="currentColor" />
+    <rect x="6.9" y="17.9" width="10.2" height="1.9" rx="0.95" fill="currentColor" />
   </svg>
 );
 
