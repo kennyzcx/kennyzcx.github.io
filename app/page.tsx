@@ -1,28 +1,6 @@
-import Link from "next/link";
+import { redirect } from "next/navigation";
 
-export default function About() {
-  return (
-    <>
-      {/* TODO: greeting/pronouns if you want to tweak them */}
-      <p className="greeting font-bold text-accent mb-1.5">hi, 你好</p>
-      <p className="mb-10">[ he/him ]</p>
-
-      {/* TODO: your school/degree */}
-      <p className="mb-5">
-        i'm currently an electrical and computer engineering major minoring in finance
-        at new york university. i have a passion for coding, learning, and building.
-      </p>
-
-      {/* TODO: your hobbies */}
-      <p className="mb-5">
-        when i'm not programming you can catch me lounging around, trying new
-        restaurants, and staring at other people's dogs.
-      </p>
-
-      <p>
-        i still have much more to learn, and i'm always open to exploring new
-        opportunities, <Link href="/contact" className="text-link font-semibold">connect with me here.</Link>
-      </p>
-    </>
-  );
+export default function Home() {
+  // the about page lives at /aboutme; the root bounces there
+  redirect("/aboutme");
 }

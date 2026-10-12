@@ -40,7 +40,7 @@ export default function SiteHeader() {
         <Link href="/experience" className={`font-semibold ${cls("/experience")}`}>
           experience
         </Link>
-        <Link href="/" className={`font-semibold ${cls("/")}`}>
+        <Link href="/aboutme" className={`font-semibold ${cls("/aboutme")}`}>
           about
         </Link>
         <Link href="/contact" className={`font-semibold ${cls("/contact")}`}>
