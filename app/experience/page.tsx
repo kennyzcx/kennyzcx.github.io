@@ -14,6 +14,8 @@ export default function Experience() {
         <h2 className="inline font-bold">incoming software engineer intern</h2>{" "}
         <span className="text-neutral-500">— tbd</span>
         <ul className="list-disc ml-5 mt-1.5">
+          <li>role details to come.</li>
+          <li>more bullets as things are finalized.</li>
         </ul>
       </div>
 
@@ -21,6 +23,8 @@ export default function Experience() {
         <h2 className="inline font-bold">incoming product management intern</h2>{" "}
         <span className="text-neutral-500">— tbd</span>
         <ul className="list-disc ml-5 mt-1.5">
+          <li>role details to come.</li>
+          <li>more bullets as things are finalized.</li>
         </ul>
       </div>
     </>
