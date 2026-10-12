@@ -5,6 +5,10 @@ export default function Experience() {
     <>
       <FlowersCanvas />
 
+      <p className="mb-8">
+        i'm interested in swe, hardware, and product management roles.
+      </p>
+
       {/* TODO: replace with your real experience entries */}
       <div className="mb-8">
         <h2 className="inline font-bold">placeholder Role</h2>{" "}

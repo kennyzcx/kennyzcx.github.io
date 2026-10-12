@@ -11,7 +11,6 @@ export default function About() {
       <p className="mb-5">
         i'm currently an electrical & computer engineering major minoring in finance
         at new york university. i have a passion for coding, learning, and building.
-        i'm interested in swe, hardware, and product management roles.
       </p>
 
       {/* TODO: your hobbies */}
