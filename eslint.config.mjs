@@ -7,8 +7,10 @@ const eslintConfig = defineConfig([
   ...nextTs,
   {
     // lowercase prose with contractions: no entity-escaping needed
+    // img-ready assets in public/: no next/image needed for tiny icons
     rules: {
       "react/no-unescaped-entities": "off",
+      "@next/next/no-img-element": "off",
     },
   },
   // Override default ignores of eslint-config-next.
