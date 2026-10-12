@@ -9,18 +9,19 @@ export default function About() {
 
       {/* TODO: your school/degree */}
       <p className="mb-5">
-        i'm currently an electrical and computer engineering major minoring in finance
+        i'm currently an electrical & computer engineering major minoring in finance
         at new york university. i have a passion for coding, learning, and building.
+        i'm interested in swe, hardware, and product management roles.
       </p>
 
       {/* TODO: your hobbies */}
       <p className="mb-5">
-        when i'm not programming you can catch me lounging around, trying new
-        restaurants, and staring at other people's dogs.
+        when i'm not programming you can catch me lounging around, going to 
+        luma events, and staring at other people's dogs.
       </p>
 
       <p>
-        i still have much more to learn, and i'm always open to exploring new
+        i still have so much more to learn, and i'm always open to exploring new
         opportunities, <Link href="/contact" className="text-link font-semibold">connect with me here.</Link>
       </p>
     </>
