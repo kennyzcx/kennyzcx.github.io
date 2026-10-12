@@ -33,7 +33,7 @@ export default function SiteHeader() {
 
   return (
     <header className="flex flex-row justify-between items-start">
-      <Link className="site-name hover:text-accent" href="/">
+      <Link className="site-name text-lg hover:text-accent" href="/">
         kenny tang
       </Link>
       <nav className="site-nav flex flex-col items-end gap-1 text-right">
