@@ -11,8 +11,8 @@ export default function Experience() {
 
       {/* TODO: replace with your real experience entries */}
       <div className="mb-8">
-        <h2 className="inline font-bold">placeholder Role</h2>{" "}
-        <span className="text-neutral-500">— placeholder Company, 2024–present</span>
+        <h2 className="inline font-bold">incoming software engineer intern</h2>{" "}
+        <span className="text-neutral-500">— tbd</span>
         <ul className="list-disc ml-5 mt-1.5">
           <li>describe what you did and the impact it had.</li>
           <li>mention technologies, tools, or teams you worked with.</li>
