@@ -4,8 +4,8 @@ export default function About() {
   return (
     <>
       {/* TODO: greeting/pronouns if you want to tweak them */}
-      <p className="greeting font-bold text-accent mb-1.5">hi, 你好</p>
-      <p className="mb-10">[ he/him ]</p>
+      <p className="greeting font-bold text-accent mb-1.5 text-lg">hi, 你好</p>
+      <p className="mb-10 text-lg">[ he/him ]</p>
 
       {/* TODO: your school/degree */}
       <p className="mb-5">
