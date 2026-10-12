@@ -8,7 +8,7 @@ export default function Contact() {
 
       {/* TODO: replace with your real email */}
       <p className="mb-5">
-        email me at <a className="text-link font-semibold" href="mailto:your-email@example.com">your-email@example.com</a>, or find me on:
+        email me at <a className="text-link font-semibold" href="mailto:your-email@example.com">kt3062@nyu.edu</a>, or find me on:
       </p>
 
       <ul className="space-y-2">
@@ -21,7 +21,7 @@ export default function Contact() {
         </li>
         {/* TODO: replace URL */}
         <li>
-          <a className="text-link font-semibold" href="https://www.linkedin.com/in/your-handle">linkedin</a>
+          <a className="text-link font-semibold" href="https://www.linkedin.com/in/kennyxtang">linkedin</a>
         </li>
       </ul>
     </>
