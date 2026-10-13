@@ -8,7 +8,7 @@ export default function SiteFooter() {
         {/* TODO: replace with your Twitter/X URL */}
         <img src="/twitter.svg" alt="" className="w-[22px] h-[22px]" />
       </a>
-      <a href="https://www.linkedin.com/in/your-handle" aria-label="LinkedIn">
+      <a href="https://www.linkedin.com/in/kennyxtang" aria-label="LinkedIn">
         {/* TODO: replace with your LinkedIn URL */}
         <img src="/linkedin.svg" alt="" className="w-[22px] h-[22px]" />
       </a>
